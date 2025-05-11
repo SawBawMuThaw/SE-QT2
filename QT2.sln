@@ -31,7 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exer4_2", "Exer4\Exer4_2\Ex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex4Tests", "Exer4\Ex4Tests\Ex4Tests.csproj", "{22206B2C-FD0A-4883-A3E3-E4625954ED79}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{25E7820E-2CD8-44F0-9D6F-79F86A73D0A6}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\..\..\..\..\Database\QT2Query.sql = ..\..\..\..\..\..\Database\QT2Query.sql
 	EndProjectSection
