@@ -1,0 +1,19 @@
+﻿@page "{handler?}"
+@model Exer3.Pages.MainModel
+@{
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="col-12 p-2">
+        <form method="post">
+            <div class="btn-group">
+                <button type="submit" class="btn btn-outline-info" asp-page-handler="item">Item</button>
+                <button type="submit" class="btn btn-outline-info" asp-page-handler="agent">Agent</button>
+                <button type="submit" class="btn btn-outline-info" asp-page-handler="order">Order</button>
+            </div>
+        </form>
+    </div>
+
+    <h2>This form is just a blank page</h2>
+</div>

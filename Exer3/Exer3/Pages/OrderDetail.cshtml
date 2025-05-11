@@ -1,0 +1,56 @@
+﻿@page
+@model Exer3.Pages.OrderDetailModel
+@{
+    ViewData["Title"] = "Create Order";
+    Layout = "_Layout";
+}
+
+<div class="col-6 m-auto">
+    <form method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <!-- cheat to carry through data between pages -->
+        <input hidden asp-for="orderId" value="@Model.orderId" />
+        <input hidden asp-for="agentId" value="@Model.agentId" />
+
+        <label class="form-label" for="Item">Item</label>
+        <select class="form-select" id="Item" asp-for="itemId" asp-items="Model.itemList"></select>
+
+        <label class="form-label" for="Quantity">Quantity</label>
+        <input class="form-control" type="number" asp-for="quantity" />
+
+        <label class="form-label" for="UnitAmt">Unit Amount</label>
+        <input class="form-control" type="number" asp-for="unitAmount" />
+
+        <button type="submit" class="btn btn-success" asp-page-handler="AddItem">Add Item</button>
+    </form>
+
+    <table class="table">
+            <thead>
+                <td>Order ID</td>
+                <td>Item ID</td>
+                <td>Quantity</td>
+                <td>Unit Amount</td>
+            </thead>
+
+            @foreach(OrderDetail detail in Model.detailList)
+            {
+                <tr>
+                    <td>@detail.OrderID</td>
+                    <td>@detail.ItemID</td>
+                    <td>@detail.Quantity</td>
+                    <td>@detail.UnitAmount</td>
+                    <td>
+                        <form method="post">
+                            <input hidden asp-for="itemId" value="@detail.ItemID" />
+                            <input hidden asp-for="orderId" value="@Model.orderId" />
+                            <input hidden asp-for="agentId" value="@Model.agentId" />
+                            <button type="submit" class="btn btn-danger" asp-page-handler="DeleteItem">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                
+            }
+        </table>
+</div>
+

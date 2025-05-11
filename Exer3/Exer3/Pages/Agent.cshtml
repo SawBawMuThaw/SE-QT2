@@ -1,0 +1,82 @@
+﻿@page
+@model Exer3.Pages.AgentModel
+@{
+    ViewData["Title"] = "Agent View";
+    Layout = "_Layout";
+}
+
+<div class="col-6 m-auto">
+    <h2>Agent View</h2>
+    <form method="post">
+        <label class="form-label" for="AgentId">Agent ID</label>
+        <select class="form-select" id="AgentId" asp-for="agentId" asp-items="Model.agentSelectList"></select>
+
+        <label class="form-label" for="AgentName">Agent Name</label>
+        <input class="form-control id="AgentName" type="text" asp-for="agentName"/>
+
+        <label class="form-label" for="AgentAddress">Address</label>
+        <input class="form-control" id="AgentAddress" type="text" asp-for="Address" />
+
+        <button type="submit" class="btn btn-success" asp-page-handler="AddAgent">Add</button>
+        <button type="submit" class="btn btn-info" asp-page-handler="UpdateAgent">Update</button>
+        <button type="submit" class="btn btn-secondary" asp-page-handler="ShowItems">Get Items Ordered by Agent</button>
+        <button type="submit" class="btn btn-primary" asp-page-handler="ShowAgents">Show Agents</button>
+    </form>
+
+    @if (Model.showBoughtItems)
+    {
+        <table class="table">
+            <thead>
+                <td>Agent ID</td>
+                <td>Order ID</td>
+                <td>Order Date</td>
+                <td>Item Name</td>
+                <td>Item Size</td>
+                <td>Quantity</td>
+                <td>Unit Amount</td>
+            </thead>
+
+            @foreach(BoughtItems b in Model.boughtItemsList)
+            {
+                <tr>
+                    <td>@b.agentId</td>
+                    <td>@b.orderId</td>
+                    <td>@b.orderDate</td>
+                    <td>@b.itemName</td>
+                    <td>@b.itemSize</td>
+                    <td>@b.quantity</td>
+                    <td>@b.unitAmount</td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <td>Agent ID</td>
+                <td>Agent Name</td>
+                <td>Address</td>
+                <td>Action</td>
+            </thead>
+
+            @foreach(Agent agent in Model.agentList)
+            {
+                <tr>
+                    <td>@agent.AgentID</td>
+                    <td>@agent.AgentName</td>
+                    <td>@agent.Address</td>
+                    <td>
+                        <form method="post">
+                            <input hidden name="id" value="@agent.AgentID" />
+                            <button class="btn btn-danger" type="submit" asp-page-handler="DeleteAgent">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    
+</div>
+
+

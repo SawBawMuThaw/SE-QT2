@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<OrderDetail>
+@{
+    Layout = "_Layout";
+}
+
+<h3>Items bought by @ViewData["AgentName"].ToString()</h3>
+<div class="col-12">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Order ID</th>
+                <th>Item ID</th>
+                <th>Quantity</th>
+                <th>Unit Amount</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach(OrderDetail orderDetail in Model)
+            {
+                <tr>
+                    <td>@orderDetail.ID</td>
+                    <td>@orderDetail.OrderID</td>
+                    <td>@orderDetail.Item.ItemName</td>
+                    <td>@orderDetail.Quantity</td>
+                    <td>@orderDetail.UnitAmount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

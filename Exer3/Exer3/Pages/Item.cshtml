@@ -1,0 +1,86 @@
+﻿@page
+@model Exer3.Pages.ItemModel
+@{
+    ViewData["Title"] = "Item View";
+    Layout = "_Layout";
+}
+
+<div class="col-6 m-auto">
+    <h2>Item View</h2>
+    <form method="post">
+        <label class="form-label" for="ItemId">Item ID</label>
+        <select class="form-select" id="ItemId" asp-for="itemId" asp-items="Model.options"></select>
+
+        <label class="form-label" for="ItemName">Item Name</label>
+        <input type="text" class="form-control" id="ItemName" asp-for="itemName" />
+
+        <label class="form-label" for="ItemSize">Item Size</label>
+        <input type="text" class="form-control" id="ItemSize" asp-for="itemSize" />
+
+        <label class="form-label" for="ItemStock">Item Stock</label>
+        <input type="number" class="form-control" id="ItemStock" asp-for="itemStock" />
+
+        <div class="d-flex justify-content-center m-2">
+            <button type="submit" class="btn btn-success" asp-page-handler="AddItem">Add</button>       
+            <button type="submit" class="btn btn-info" asp-page-handler="UpdateItem">Update</button>
+        </div>
+    </form>
+
+    <form method="post" id="sortForm">
+        <div class="input-group">
+            <select class="form-select" asp-for="sortIndex" asp-items="Model.sortOpts"></select>
+            <button class="btn btn-outline-secondary" type="submit">Sort</button>
+        </div>
+        
+    </form>
+
+    @if(Model.sortIndex == 0)
+    {
+        <table class="table">
+            <thead>
+                <td>Item ID</td>
+                <td>Item Name</td>
+                <td>Item Size</td>
+                <td>Item Stock</td>
+                <td>Action</td>
+            </thead>
+
+            @foreach(Item i in Model.itemList)
+            {
+                <tr>
+                    <td>@i.ItemID</td>
+                    <td>@i.ItemName</td>
+                    <td>@i.Size</td>
+                    <td>@i.Stock.ToString()</td>
+                    <td>
+                        <form method="post">
+                            <input hidden name="itemId" value="@i.ItemID" />
+                            <button type="submit" class="btn btn-danger" asp-page-handler="DeleteItem">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <td>Item ID</td>
+                <td>Item Name</td>
+                <td>Quantity</td>
+            </thead>
+
+            @foreach(ExtItem i in Model.sortedList)
+            {
+                <tr>
+                    <td>@i.ItemId</td>
+                    <td>@i.ItemName</td>
+                    <td>@i.Quantity</td>
+                </tr>
+            }
+        </table>
+    }
+
+</div>
+

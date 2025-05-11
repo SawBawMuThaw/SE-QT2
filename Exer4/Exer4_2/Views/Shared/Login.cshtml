@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model User
+@{
+    Layout = "_LoginLayout";
+}
+
+<div class="col-4 m-auto border rounded p-3">
+    <div class="text-center">
+        <h2>Login</h2>
+    </div>
+
+    <form asp-action="Login" asp-controller="User">
+        <div asp-validation-summary="All" ></div>
+
+        <label asp-for="Email" class="form-label">Email</label>
+        <input asp-for="Email" class="form-control" type="text"/>
+
+        <label asp-for="Username" class="form-label">Username</label>
+        <input type="text" class="form-control" asp-for="Username" />
+
+        <label asp-for="Password" class="form-label">Password</label>
+        <input type="password" class="form-control" asp-for="Password" />
+
+        <input type="submit" class="btn btn-primary m-1" value="Login"/>
+    </form>
+</div>

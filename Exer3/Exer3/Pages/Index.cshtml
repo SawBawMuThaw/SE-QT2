@@ -1,0 +1,26 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Login";
+
+    Layout = "_LoginLayout";
+}
+
+<div class="container">
+    <div class="m-auto col-lg-4 col-12">
+        <h2 class="mx-auto">Login</h2>
+        <form method="post">
+            <label for="username" class="form-label">Username or Email</label>
+            <input type="text" id="username" name="username" class="form-control" />
+
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" name="password" class="form-control" />
+
+            <button type="submit" class="m-auto btn btn-primary">Login</button>
+
+            <div>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </form>
+    </div>
+</div>

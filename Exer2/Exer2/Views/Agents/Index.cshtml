@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Exer2.Agent>
+
+@{
+    ViewBag.Title = "Agents";
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h3 class="mb-0"><i class="fas fa-user-tie"></i> Agents</h3>
+    </div>
+    <div class="card-body">
+        <p>
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+        </p>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Agent Name</th>
+                        <th>Address</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.AgentName</td>
+                            <td>@item.Address</td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.AgentID }, new { @class = "btn btn-outline-primary btn-sm" })
+                                @Html.ActionLink("Details", "Details", new { id = item.AgentID }, new { @class = "btn btn-outline-info btn-sm" })
+                                @Html.ActionLink("Delete", "Delete", new { id = item.AgentID }, new { @class = "btn btn-outline-danger btn-sm" })
+                                @Html.ActionLink("Purchases", "Purchases", new { id = item.AgentID }, new { @class = "btn btn-outline-success btn-sm" })
+                                @Html.ActionLink("Items Purchased", "ItemsPurchased", new { id = item.AgentID }, new { @class = "btn btn-outline-warning btn-sm" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

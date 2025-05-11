@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Exer2.Item>
+
+@{
+    ViewBag.Title = "Items";
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h3 class="mb-0"><i class="fas fa-box"></i> Items</h3>
+    </div>
+    <div class="card-body">
+        <p>
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+        </p>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Size</th>
+                        <th>Stock</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ItemName</td>
+                            <td>@item.Size</td>
+                            <td>@item.Stock</td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ItemID }, new { @class = "btn btn-outline-primary btn-sm" })
+                                @Html.ActionLink("Details", "Details", new { id = item.ItemID }, new { @class = "btn btn-outline-info btn-sm" })
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ItemID }, new { @class = "btn btn-outline-danger btn-sm" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

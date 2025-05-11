@@ -1,0 +1,63 @@
+﻿@model Exer2.Order
+
+@{
+    ViewBag.Title = "Print Order";
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h3 class="mb-0"><i class="fas fa-print"></i> Order #@Model.OrderID</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Order Date:</strong> @Model.OrderDate.ToString("yyyy-MM-dd")</p>
+                <p><strong>Agent:</strong> @Model.Agent.AgentName</p>
+            </div>
+        </div>
+        <h4 class="mt-4">Order Details</h4>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Unit Amount</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var detail in Model.OrderDetails)
+                    {
+                        <tr>
+                            <td>@detail.Item.ItemName</td>
+                            <td>@detail.Quantity</td>
+                            <td>@detail.UnitAmount</td>
+                            <td>@(detail.Quantity * detail.UnitAmount)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <button onclick="window.print()" class="btn btn-primary"><i class="fas fa-print"></i> Print</button>
+    </div>
+</div>
+
+<style>
+    @@media print {
+        .navbar, .footer, .btn {
+            display: none;
+        }
+
+        .card {
+            box-shadow: none;
+            border: none;
+        }
+
+        .card-header {
+            background: none !important;
+            color: black !important;
+            border-bottom: 1px solid #000;
+        }
+    }
+</style>

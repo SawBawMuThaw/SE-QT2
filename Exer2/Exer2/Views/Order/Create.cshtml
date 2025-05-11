@@ -1,0 +1,118 @@
+﻿@model Exer2.Models.OrderViewModel
+
+@{
+    ViewBag.Title = "Create Order";
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h3 class="mb-0"><i class="fas fa-plus"></i> Create Order</h3>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        @Html.LabelFor(model => model.Order.OrderDate, new { @class = "form-label" })
+                        @Html.EditorFor(model => model.Order.OrderDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                        @Html.ValidationMessageFor(model => model.Order.OrderDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        @Html.LabelFor(model => model.Order.AgentID, new { @class = "form-label" })
+                        @Html.DropDownListFor(model => model.Order.AgentID, (SelectList)ViewBag.AgentID, "Select Agent", new { @class = "form-select" })
+                        @Html.ValidationMessageFor(model => model.Order.AgentID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="mt-4">Order Details</h4>
+            <div id="orderDetails">
+                @for (int i = 0; i < Model.OrderDetails.Count; i++)
+                {
+                    <div class="row mb-3 order-detail-row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.OrderDetails[i].ItemID, "Item", new { @class = "form-label" })
+                                @Html.DropDownListFor(model => model.OrderDetails[i].ItemID, new SelectList(Model.AvailableItems, "ItemID", "ItemName"), "Select Item", new { @class = "form-select" })
+                                @Html.ValidationMessageFor(model => model.OrderDetails[i].ItemID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.OrderDetails[i].Quantity, "Quantity", new { @class = "form-label" })
+                                @Html.EditorFor(model => model.OrderDetails[i].Quantity, new { htmlAttributes = new { @class = "form-control", type = "number", min = "1" } })
+                                @Html.ValidationMessageFor(model => model.OrderDetails[i].Quantity, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.OrderDetails[i].UnitAmount, "Unit Amount", new { @class = "form-label" })
+                                @Html.EditorFor(model => model.OrderDetails[i].UnitAmount, new { htmlAttributes = new { @class = "form-control", type = "number", min = "0" } })
+                                @Html.ValidationMessageFor(model => model.OrderDetails[i].UnitAmount, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button type="button" class="btn btn-danger remove-row"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                }
+            </div>
+            <button type="button" id="addRow" class="btn btn-outline-secondary mb-3"><i class="fas fa-plus"></i> Add Item</button>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Create</button>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $("#addRow").click(function () {
+                var index = $(".order-detail-row").length;
+                var row = `
+                    <div class="row mb-3 order-detail-row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Item</label>
+                                <select name="OrderDetails[${index}].ItemID" class="form-select">
+                                    <option value="">Select Item</option>
+                                    @foreach (var item in Model.AvailableItems)
+                                    {
+                                        <option value="@item.ItemID">@item.ItemName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Quantity</label>
+                                <input name="OrderDetails[${index}].Quantity" type="number" min="1" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Unit Amount</label>
+                                <input name="OrderDetails[${index}].UnitAmount" type="number" min="0" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button type="button" class="btn btn-danger remove-row"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>`;
+                $("#orderDetails").append(row);
+            });
+
+            $(document).on("click", ".remove-row", function () {
+                if ($(".order-detail-row").length > 1) {
+                    $(this).closest(".order-detail-row").remove();
+                }
+            });
+        });
+    </script>
+}

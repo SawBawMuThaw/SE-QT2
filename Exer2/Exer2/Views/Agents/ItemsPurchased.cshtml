@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Exer2.Item>
+
+@{
+    ViewBag.Title = "Items Purchased by " + ViewBag.AgentName;
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h3 class="mb-0"><i class="fas fa-box"></i> Items Purchased by @ViewBag.AgentName</h3>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Size</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ItemName</td>
+                            <td>@item.Size</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
